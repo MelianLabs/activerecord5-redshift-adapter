@@ -5,7 +5,7 @@ module ActiveRecord
         private
 
         def visit_ColumnDefinition(o)
-          o.sql_type = type_to_sql(o.type, o.options)
+          o.sql_type = type_to_sql(o.type, **o.options)
           super
         end
 
@@ -387,7 +387,7 @@ module ActiveRecord
         end
 
         # Maps logical Rails types to PostgreSQL-specific data types.
-        def type_to_sql(type, limit: nil, precision: nil, scale: nil, **)
+        def type_to_sql(type, limit: nil, precision: nil, scale: nil, **) # :nodoc:
           case type.to_s
           when 'integer'
             return 'integer' unless limit
