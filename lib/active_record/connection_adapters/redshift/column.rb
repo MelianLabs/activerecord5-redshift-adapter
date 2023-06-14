@@ -12,6 +12,12 @@ module ActiveRecord
       def is_identity?
         self.identity != nil
       end
+
+      def array
+        sql_type_metadata.sql_type.end_with?("[]")
+      end
+      alias :array? :array
+
     end
   end
 end
